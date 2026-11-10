@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Adrian Zhang</title>
+<meta name="description" content="Adrian (Yitian) Zhang — business analytics and investment research. M.S. Applied Business Analytics, Boston University.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+/* Layout idea: an equity-research cover page. Masthead rule, name as headline, a "Key data" box, then work entries filed by date like research notes, each carrying its real numbers. */
+:root{
+  --bg:#F3F4F1;
+  --surface:#FFFFFF;
+  --ink:#111A24;
+  --muted:#5B6672;
+  --rule:#D3D8DB;
+  --accent:#0F5C4D;
+  --accent-soft:#DCEAE5;
+  --font-display:"Fraunces", Georgia, "Times New Roman", serif;
+  --font-body:"IBM Plex Sans", "Helvetica Neue", Arial, "PingFang SC", "Microsoft YaHei", sans-serif;
+  --font-mono:"IBM Plex Mono", ui-monospace, Menlo, Consolas, monospace;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#0E1419; --surface:#151D24; --ink:#E6EBEE; --muted:#93A0AB;
+    --rule:#28333C; --accent:#5DBFA5; --accent-soft:#1B3A33;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0E1419; --surface:#151D24; --ink:#E6EBEE; --muted:#93A0AB;
+  --rule:#28333C; --accent:#5DBFA5; --accent-soft:#1B3A33;
+  color-scheme: dark;
+}
+
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0; background:var(--bg); color:var(--ink);
+  font-family:var(--font-body); font-size:16px; line-height:1.6;
+}
+a{color:inherit}
+a:focus-visible, .btn:focus-visible{outline:2px solid var(--accent); outline-offset:3px; border-radius:2px}
+.wrap{max-width:1080px; margin:0 auto; padding:0 24px}
+h1,h2,h3{text-wrap:balance; margin:0}
+.mono{font-family:var(--font-mono); font-variant-numeric:tabular-nums}
+
+/* Masthead */
+.masthead{
+  display:flex; justify-content:space-between; align-items:center; gap:16px; flex-wrap:wrap;
+  padding:20px 0 14px; border-bottom:3px solid var(--ink);
+  font-family:var(--font-mono); font-size:12px; letter-spacing:.08em; text-transform:uppercase;
+}
+.masthead nav{display:flex; gap:20px; flex-wrap:wrap}
+.masthead nav a{text-decoration:none; color:var(--muted)}
+.masthead nav a:hover{color:var(--accent)}
+
+/* Hero */
+.hero{
+  display:grid; grid-template-columns:minmax(0,1.6fr) minmax(0,1fr); gap:56px;
+  padding:56px 0 64px; border-bottom:1px solid var(--rule);
+}
+.kicker{font-family:var(--font-mono); font-size:12px; letter-spacing:.1em; text-transform:uppercase; color:var(--accent); margin-bottom:18px}
+.name{
+  font-family:var(--font-display); font-weight:600; font-size:clamp(48px, 8vw, 92px);
+  line-height:.95; letter-spacing:-.025em;
+}
+.name .cn{display:block; font-family:var(--font-body); font-weight:400; font-size:.32em; letter-spacing:.2em; color:var(--muted); margin-top:16px}
+.thesis{font-family:var(--font-display); font-weight:400; font-size:clamp(20px, 2.4vw, 26px); line-height:1.35; max-width:30ch; margin:28px 0 32px}
+.actions{display:flex; gap:12px; flex-wrap:wrap}
+.btn{
+  display:inline-flex; align-items:center; gap:8px; padding:11px 18px;
+  font-family:var(--font-mono); font-size:13px; text-decoration:none;
+  border:1px solid var(--ink); transition:background .15s, color .15s;
+}
+.btn.primary{background:var(--ink); color:var(--bg)}
+.btn:hover{background:var(--accent); border-color:var(--accent); color:#fff}
+
+.keydata{background:var(--surface); border:1px solid var(--rule); border-top:3px solid var(--accent); padding:22px 24px; align-self:start}
+.keydata h2{font-family:var(--font-mono); font-size:12px; letter-spacing:.1em; text-transform:uppercase; font-weight:500; margin-bottom:10px}
+.keydata dl{margin:0; display:grid; grid-template-columns:auto 1fr; column-gap:18px}
+.keydata dt, .keydata dd{padding:9px 0; border-top:1px solid var(--rule); margin:0; font-size:14px}
+.keydata dt{color:var(--muted); font-family:var(--font-mono); font-size:12px; padding-top:11px}
+.keydata dd{font-weight:500}
+.keydata dd small{display:block; font-weight:400; color:var(--muted); font-size:13px}
+
+/* Sections */
+section{padding:64px 0; border-bottom:1px solid var(--rule)}
+.sec-head{display:grid; grid-template-columns:200px 1fr; gap:32px; margin-bottom:32px; align-items:baseline}
+.sec-head .label{font-family:var(--font-mono); font-size:12px; letter-spacing:.1em; text-transform:uppercase; color:var(--accent)}
+.sec-head h2{font-family:var(--font-display); font-weight:600; font-size:clamp(28px, 3.6vw, 40px); letter-spacing:-.015em; line-height:1.1}
+
+/* Research notes */
+.notes{list-style:none; margin:0; padding:0}
+.note{display:grid; grid-template-columns:200px 1fr minmax(0,300px); gap:32px; padding:28px 0; border-top:1px solid var(--rule)}
+.note:first-child{border-top:none; padding-top:0}
+.note .date{font-family:var(--font-mono); font-size:13px; color:var(--muted)}
+.note .date .tag{display:inline-block; margin-top:8px; padding:2px 8px; background:var(--accent-soft); color:var(--accent); font-size:11px; letter-spacing:.06em; text-transform:uppercase}
+.note h3{font-family:var(--font-display); font-weight:600; font-size:22px; line-height:1.25; margin-bottom:8px}
+.note p{margin:0 0 10px; color:var(--muted); max-width:62ch}
+.note .stack{font-family:var(--font-mono); font-size:12px; color:var(--muted)}
+
+/* Proof figures */
+.proof{background:var(--surface); border:1px solid var(--rule); padding:16px 18px; align-self:start}
+.proof .big{font-family:var(--font-mono); font-size:26px; font-weight:500; line-height:1.1; color:var(--ink)}
+.proof .cap{font-size:12px; color:var(--muted); margin-top:4px}
+.bars{display:grid; gap:10px; margin-top:4px}
+.bar-row{display:grid; grid-template-columns:88px 1fr 48px; gap:10px; align-items:center; font-size:12px}
+.bar-row .lbl{color:var(--muted)}
+.bar-row .val{font-family:var(--font-mono); text-align:right; font-variant-numeric:tabular-nums}
+.track{height:10px; background:var(--accent-soft); position:relative}
+.fill{position:absolute; inset:0 auto 0 0; background:var(--muted); transform-origin:left; animation:grow .9s cubic-bezier(.2,.7,.2,1) both}
+.fill.hi{background:var(--accent)}
+@keyframes grow{from{transform:scaleX(.15)}to{transform:scaleX(1)}}
+.proof-title{font-family:var(--font-mono); font-size:11px; letter-spacing:.06em; text-transform:uppercase; color:var(--muted); margin-bottom:10px}
+
+/* AD Market Research */
+.adr{display:grid; grid-template-columns:200px 1fr; gap:32px}
+.adr-body p{max-width:62ch; margin:0 0 20px}
+.stat-row{display:grid; grid-template-columns:repeat(3, minmax(0,1fr)); gap:1px; background:var(--rule); border:1px solid var(--rule); margin:28px 0}
+.stat{background:var(--surface); padding:18px 20px}
+.stat .num{font-family:var(--font-mono); font-size:28px; font-weight:500; line-height:1.1}
+.stat .what{font-size:13px; color:var(--muted); margin-top:6px}
+.split{margin-top:8px}
+.split-bar{display:flex; height:14px; gap:2px}
+.split-bar span{display:block; height:100%}
+.split-legend{display:flex; flex-wrap:wrap; gap:8px 24px; margin-top:10px; font-size:13px; color:var(--muted)}
+.split-legend i{display:inline-block; width:10px; height:10px; margin-right:6px; vertical-align:-1px}
+.c1{background:var(--accent)} .c2{background:var(--ink)} .c3{background:var(--muted)}
+.foot-note{font-size:12px; color:var(--muted); margin-top:12px}
+.textlink{color:var(--accent); text-underline-offset:3px}
+
+/* Experience */
+.timeline{list-style:none; margin:0; padding:0}
+.job{display:grid; grid-template-columns:200px 1fr; gap:32px; padding:20px 0; border-top:1px solid var(--rule)}
+.job:first-child{border-top:none; padding-top:0}
+.job .when{font-family:var(--font-mono); font-size:13px; color:var(--muted)}
+.job .when span{display:block}
+.job h3{font-size:17px; font-weight:600; margin-bottom:2px}
+.job h3 .role{font-weight:400; color:var(--muted)}
+.job p{margin:4px 0 0; color:var(--muted); max-width:66ch; font-size:15px}
+
+/* Toolkit + contact */
+.toolkit{display:grid; grid-template-columns:200px 1fr; gap:32px}
+.toolkit p{margin:0 0 8px; max-width:70ch}
+.toolkit .k{font-family:var(--font-mono); font-size:12px; color:var(--muted); text-transform:uppercase; letter-spacing:.06em; margin-right:10px}
+
+footer{padding:56px 0 64px}
+.contact{display:grid; grid-template-columns:200px 1fr; gap:32px; align-items:baseline}
+.contact h2{font-family:var(--font-display); font-weight:600; font-size:clamp(26px,3.2vw,36px); line-height:1.15; margin-bottom:20px; max-width:22ch}
+.links{display:flex; flex-wrap:wrap; gap:12px 28px; font-family:var(--font-mono); font-size:14px}
+.links a{color:var(--accent); text-underline-offset:3px}
+.links .plain{color:var(--muted)}
+.colophon{margin-top:48px; font-family:var(--font-mono); font-size:11px; color:var(--muted); letter-spacing:.06em; text-transform:uppercase}
+
+@media (max-width: 860px){
+  .hero{grid-template-columns:1fr; gap:36px; padding:40px 0 48px}
+  .sec-head, .adr, .job, .toolkit, .contact{grid-template-columns:1fr; gap:10px}
+  .note{grid-template-columns:1fr; gap:14px}
+  section{padding:48px 0}
+}
+@media (max-width: 480px){
+  .wrap{padding:0 18px}
+  .stat-row{grid-template-columns:1fr}
+  .masthead nav{gap:14px}
+}
+@media (prefers-reduced-motion: reduce){
+  .fill{animation:none}
+  .btn{transition:none}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="masthead">
+    <span>AD Market Research · Analyst Profile</span>
+    <nav aria-label="Sections">
+      <a href="#work">Work</a>
+      <a href="#research">Research</a>
+      <a href="#experience">Experience</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </header>
+
+  <div class="hero">
+    <div>
+      <div class="kicker">Business Analytics · Investment Research</div>
+      <h1 class="name">Adrian Zhang<span class="cn" lang="zh">张逸天</span></h1>
+      <p class="thesis">I turn messy market and business data into decisions, from equity research notes to models that hold up in a backtest.</p>
+      <div class="actions">
+        <a class="btn primary" href="resume.pdf">Résumé (PDF)</a>
+        <a class="btn" href="https://www.linkedin.com/in/yitian-zhang1219/">LinkedIn</a>
+        <a class="btn" href="https://github.com/adriannb666">GitHub</a>
+      </div>
+    </div>
+
+    <aside class="keydata" aria-label="Key data">
+      <h2>Key data</h2>
+      <dl>
+        <dt>Now</dt>
+        <dd>M.S. Applied Business Analytics<small>Boston University · exp. Dec 2027 · $10,000 scholarship</small></dd>
+        <dt>Prior</dt>
+        <dd>B.A. Applied Mathematics<small>Kenyon College · May 2026</small></dd>
+        <dt>Base</dt>
+        <dd>Boston, MA</dd>
+        <dt>Coverage</dt>
+        <dd>US equities · Macro · Digital assets</dd>
+        <dt>Languages</dt>
+        <dd>Chinese (native) · English</dd>
+      </dl>
+    </aside>
+  </div>
+
+  <section id="work" aria-labelledby="work-h">
+    <div class="sec-head">
+      <span class="label">Selected work</span>
+      <h2 id="work-h">Projects, filed like research notes</h2>
+    </div>
+
+    <ol class="notes">
+      <li class="note">
+        <div class="date">2026.10<br><span class="tag">Winner</span></div>
+        <div>
+          <h3>Talent recruiting &amp; employer benchmarking</h3>
+          <p>Text analysis of job ads and employee reviews for Accenture, Booz Allen Hamilton and Capgemini. Recommended a faster path from onboarding to first project and protected learning time. Won the 2026 Boston University ABA Hackathon.</p>
+          <div class="stack">Python · NLP · Text analytics</div>
+        </div>
+        <div class="proof">
+          <div class="big">1,749</div>
+          <div class="cap">documents analyzed: 504 job ads + 1,245 employee reviews</div>
+        </div>
+      </li>
+
+      <li class="note">
+        <div class="date">2024.12</div>
+        <div>
+          <h3>Gold &amp; Bitcoin trading strategy</h3>
+          <p>EMA signals under VaR and CVaR constraints, with 1% fees on gold and 2% on BTC, backtested over 2016–2021. Turned $1,000 into $13,236. Buy-and-hold ended higher, but the strategy cut the worst drawdown by more than a third.</p>
+          <div class="stack">Python · Backtesting · Risk constraints</div>
+        </div>
+        <div class="proof">
+          <div class="proof-title">Max drawdown</div>
+          <div class="bars">
+            <div class="bar-row"><span class="lbl">Strategy</span><span class="track"><span class="fill hi" style="width:47%"></span></span><span class="val">~47%</span></div>
+            <div class="bar-row"><span class="lbl">Buy &amp; hold</span><span class="track"><span class="fill" style="width:81%"></span></span><span class="val">~81%</span></div>
+          </div>
+        </div>
+      </li>
+
+      <li class="note">
+        <div class="date">2026<br><span class="tag">Thesis</span></div>
+        <div>
+          <h3>Bitcoin portfolio rebalancing as a Markov decision process</h3>
+          <p>Finite-horizon MDP with 11 weight levels and 60-day rolling returns, solved by Bellman backward induction and compared with buy-and-hold over 2024–2025.</p>
+          <div class="stack">Dynamic programming · Python</div>
+        </div>
+        <div class="proof">
+          <div class="big">11</div>
+          <div class="cap">portfolio weight levels in the state space</div>
+        </div>
+      </li>
+
+      <li class="note">
+        <div class="date">2026 Spring</div>
+        <div>
+          <h3>Loan approval prediction</h3>
+          <p>Least-squares classifier for loan decisions. Removing credit score dropped accuracy to 82%, which showed how much the model relies on it.</p>
+          <div class="stack">MATLAB · Classification</div>
+        </div>
+        <div class="proof">
+          <div class="proof-title">Test accuracy</div>
+          <div class="bars">
+            <div class="bar-row"><span class="lbl">Model</span><span class="track"><span class="fill hi" style="width:89%"></span></span><span class="val">89%</span></div>
+            <div class="bar-row"><span class="lbl">Baseline</span><span class="track"><span class="fill" style="width:73%"></span></span><span class="val">73%</span></div>
+          </div>
+        </div>
+      </li>
+
+      <li class="note">
+        <div class="date">2024.09</div>
+        <div>
+          <h3>Airline fleet &amp; route optimization</h3>
+          <p>Linear and mixed-integer programming to allocate a $160M budget. Recommended 10 aircraft at $154M for an estimated $163,600 in daily profit.</p>
+          <div class="stack">MATLAB · LP / MIP</div>
+        </div>
+        <div class="proof">
+          <div class="big">$163,600</div>
+          <div class="cap">daily profit, on $154M of a $160M budget</div>
+        </div>
+      </li>
+    </ol>
+  </section>
+
+  <section id="research" aria-labelledby="research-h">
+    <div class="adr">
+      <span class="sec-head label" style="display:block;margin:0;font-family:var(--font-mono);font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--accent)">Independent research</span>
+      <div class="adr-body">
+        <h2 id="research-h" style="font-family:var(--font-display);font-weight:600;font-size:clamp(28px,3.6vw,40px);letter-spacing:-.015em;line-height:1.1;margin-bottom:20px">AD Market Research <span lang="zh" style="font-family:var(--font-body);font-weight:400;font-size:.5em;color:var(--muted)">AD市场研究</span></h2>
+        <p>I founded AD Market Research in January 2026, after publishing on US stocks, macro and digital assets since October 2022. The work is Chinese-language market analysis and explainers, and the data and code behind every study are public on GitHub.</p>
+
+        <div class="stat-row">
+          <div class="stat"><div class="num">1.077M</div><div class="what">likes across three platforms</div></div>
+          <div class="stat"><div class="num">61.1%</div><div class="what">first-week retention, 90 acquired community members</div></div>
+          <div class="stat"><div class="num">$330M+</div><div class="what">cumulative trading volume from referred users</div></div>
+        </div>
+
+        <div class="split" aria-label="Likes by platform">
+          <div class="split-bar">
+            <span class="c1" style="flex:528"></span>
+            <span class="c2" style="flex:493"></span>
+            <span class="c3" style="flex:56"></span>
+          </div>
+          <div class="split-legend">
+            <span><i class="c1"></i>Douyin <span class="mono">528K</span></span>
+            <span><i class="c2"></i>Xiaohongshu <span class="mono">493K</span></span>
+            <span><i class="c3"></i>WeChat Channels <span class="mono">56K</span></span>
+          </div>
+          <div class="foot-note">Figures as of September 2026.</div>
+        </div>
+
+        <p style="margin-top:28px"><a class="textlink" href="https://github.com/adriannb666/market-research">Browse the studies on GitHub →</a></p>
+      </div>
+    </div>
+  </section>
+
+  <section id="experience" aria-labelledby="exp-h">
+    <div class="sec-head">
+      <span class="label">Experience</span>
+      <h2 id="exp-h">Banks, brokers and a buy-side desk</h2>
+    </div>
+    <ol class="timeline">
+      <li class="job">
+        <div class="when"><span>2026.08</span>Nanjing</div>
+        <div>
+          <h3>CITIC Bank <span class="role">· International Business Intern</span></h3>
+          <p>Compared offshore financing, FX deposits and forwards across six months of import-financing cases; tracked FX markets and corporate hedging.</p>
+        </div>
+      </li>
+      <li class="job">
+        <div class="when"><span>2026.05 – 07</span>Nanjing</div>
+        <div>
+          <h3>Bank of Nanjing <span class="role">· Corporate Banking Intern</span></h3>
+          <p>Supported credit risk review and ratings for corporate and institutional clients.</p>
+        </div>
+      </li>
+      <li class="job">
+        <div class="when"><span>2025.05 – 07</span>Hong Kong / Shenzhen</div>
+        <div>
+          <h3>Ten Asset Management <span class="role">· Research Assistant</span></h3>
+          <p>Wrote five company reports on Tesla, Meituan, Boeing, Coinbase and Circle using Bloomberg Terminal, and presented them at investment meetings.</p>
+        </div>
+      </li>
+      <li class="job">
+        <div class="when"><span>2024.06 – 08</span>Shanghai</div>
+        <div>
+          <h3>SJTU AI Incubator <span class="role">· Strategy &amp; Operations Intern</span></h3>
+          <p>Coordinated the App Store launch of Vision Pro app Realmfy and commercialization talks for LLM robot dog Mindog.</p>
+        </div>
+      </li>
+      <li class="job">
+        <div class="when"><span>2024.05 – 06</span>Nanjing</div>
+        <div>
+          <h3>China Securities <span class="role">· Investment Advisory Intern</span></h3>
+          <p>Gathered market, macro and sector research and built client-facing decks.</p>
+        </div>
+      </li>
+    </ol>
+  </section>
+
+  <section aria-labelledby="tool-h">
+    <div class="toolkit">
+      <span class="label" id="tool-h" style="font-family:var(--font-mono);font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--accent)">Toolkit</span>
+      <div>
+        <p><span class="k">Tools</span>Python, R, MATLAB, SQL, Power BI, Excel, Bloomberg Terminal</p>
+        <p><span class="k">Methods</span>Regression, ANOVA, LP/MIP, Monte Carlo, dynamic programming, backtesting, VaR/CVaR</p>
+      </div>
+    </div>
+  </section>
+
+  <footer id="contact">
+    <div class="contact">
+      <span class="label" style="font-family:var(--font-mono);font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--accent)">Contact</span>
+      <div>
+        <h2>Looking for business analytics and research roles.</h2>
+        <div class="links">
+          <a href="https://www.linkedin.com/in/yitian-zhang1219/">LinkedIn</a>
+          <a href="https://github.com/adriannb666">GitHub</a>
+          <span class="plain">Zhihu · 阿德里安</span>
+        </div>
+        <div class="colophon">Adrian (Yitian) Zhang · Boston · Updated November 2026</div>
+      </div>
+    </div>
+  </footer>
+
+</div>
+</body>
+</html>
