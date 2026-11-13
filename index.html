@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Adrian Zhang</title>
+<title>Adrian Zhang | Business Analytics &amp; Research</title>
 <meta name="description" content="Adrian (Yitian) Zhang — business analytics and investment research. M.S. Applied Business Analytics, Boston University.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -99,6 +99,10 @@ section{padding:64px 0; border-bottom:1px solid var(--rule)}
 .note:first-child{border-top:none; padding-top:0}
 .note .date{font-family:var(--font-mono); font-size:13px; color:var(--muted)}
 .note .date .tag{display:inline-block; margin-top:8px; padding:2px 8px; background:var(--accent-soft); color:var(--accent); font-size:11px; letter-spacing:.06em; text-transform:uppercase}
+.note h3 a{text-decoration-thickness:1px;text-underline-offset:5px}
+.note h3 a:hover{color:var(--accent)}
+.note > div{min-width:0}
+.project-index{display:flex;flex-wrap:wrap;gap:12px 28px;margin:28px 0 0}
 .note h3{font-family:var(--font-display); font-weight:600; font-size:22px; line-height:1.25; margin-bottom:8px}
 .note p{margin:0 0 10px; color:var(--muted); max-width:62ch}
 .note .stack{font-family:var(--font-mono); font-size:12px; color:var(--muted)}
@@ -190,9 +194,9 @@ footer{padding:56px 0 64px}
     <div>
       <div class="kicker">Business Analytics · Investment Research</div>
       <h1 class="name">Adrian Zhang<span class="cn" lang="zh">张逸天</span></h1>
-      <p class="thesis">I turn messy market and business data into decisions, from equity research notes to models that hold up in a backtest.</p>
+      <p class="thesis">I use Python, R and optimization to answer business and market questions, from employer benchmarking to trading risk.</p>
       <div class="actions">
-        <a class="btn primary" href="resume.pdf">Résumé (PDF)</a>
+        <a class="btn primary" href="#work">Explore projects</a>
         <a class="btn" href="https://www.linkedin.com/in/yitian-zhang1219/">LinkedIn</a>
         <a class="btn" href="https://github.com/adriannb666">GitHub</a>
       </div>
@@ -218,16 +222,16 @@ footer{padding:56px 0 64px}
   <section id="work" aria-labelledby="work-h">
     <div class="sec-head">
       <span class="label">Selected work</span>
-      <h2 id="work-h">Projects, filed like research notes</h2>
+      <h2 id="work-h">Business questions. Methods. Results.</h2>
     </div>
 
     <ol class="notes">
       <li class="note">
         <div class="date">2026.10<br><span class="tag">Winner</span></div>
         <div>
-          <h3>Talent recruiting &amp; employer benchmarking</h3>
-          <p>Text analysis of job ads and employee reviews for Accenture, Booz Allen Hamilton and Capgemini. Recommended a faster path from onboarding to first project and protected learning time. Won the 2026 Boston University ABA Hackathon.</p>
-          <div class="stack">Python · NLP · Text analytics</div>
+          <h3><a href="https://github.com/adriannb666/analytics-project-portfolio/tree/main/projects/early-career-talent">Talent recruiting &amp; employer benchmarking</a></h3>
+          <p>Text analysis of job ads and employee reviews for Accenture, Booz Allen Hamilton and Capgemini. Recommended a faster path from onboarding to first project and protected learning time. Our League of Page team won the 2026 Boston University ABA Hackathon.</p>
+          <div class="stack">Python · Text screening · Evidence review</div>
         </div>
         <div class="proof">
           <div class="big">1,749</div>
@@ -236,9 +240,22 @@ footer{padding:56px 0 64px}
       </li>
 
       <li class="note">
+        <div class="date">Application<br><span class="tag">Trading tools</span></div>
+        <div>
+          <h3><a href="https://github.com/adriannb666/analytics-project-portfolio/tree/main/projects/trading-terminal">Trading research &amp; risk terminal</a></h3>
+          <p>A web application for trading plans, position sizing, pre-trade checks, journals and DEX risk monitoring. Public source includes React components and backend schemas; running the app requires a configured Base44 backend.</p>
+          <div class="stack">React · TypeScript · Base44 · Risk calculations</div>
+        </div>
+        <div class="proof">
+          <div class="proof-title">Inspect the implementation</div>
+          <div class="cap">Public source snapshot with setup instructions and deployment configuration omitted.</div>
+        </div>
+      </li>
+
+      <li class="note">
         <div class="date">2024.12</div>
         <div>
-          <h3>Gold &amp; Bitcoin trading strategy</h3>
+          <h3><a href="https://github.com/adriannb666/analytics-project-portfolio/tree/main/research/gold-bitcoin-strategy">Gold &amp; Bitcoin trading strategy</a></h3>
           <p>EMA signals under VaR and CVaR constraints, with 1% fees on gold and 2% on BTC, backtested over 2016–2021. Turned $1,000 into $13,236. Buy-and-hold ended higher, but the strategy cut the worst drawdown by more than a third.</p>
           <div class="stack">Python · Backtesting · Risk constraints</div>
         </div>
@@ -254,9 +271,9 @@ footer{padding:56px 0 64px}
       <li class="note">
         <div class="date">2026<br><span class="tag">Thesis</span></div>
         <div>
-          <h3>Bitcoin portfolio rebalancing as a Markov decision process</h3>
-          <p>Finite-horizon MDP with 11 weight levels and 60-day rolling returns, solved by Bellman backward induction and compared with buy-and-hold over 2024–2025.</p>
-          <div class="stack">Dynamic programming · Python</div>
+          <h3><a href="https://github.com/adriannb666/analytics-project-portfolio/tree/main/research/bitcoin-dynamic-allocation">Bitcoin portfolio rebalancing as a Markov decision process</a></h3>
+          <p>Capstone research on portfolio rebalancing with 11 weight levels and 60-day rolling returns. Supporting experiments are reproduced; the final Bellman implementation is not yet available in the public archive.</p>
+          <div class="stack">Dynamic programming · R experiments</div>
         </div>
         <div class="proof">
           <div class="big">11</div>
@@ -267,7 +284,7 @@ footer{padding:56px 0 64px}
       <li class="note">
         <div class="date">2026 Spring</div>
         <div>
-          <h3>Loan approval prediction</h3>
+          <h3><a href="https://github.com/adriannb666/analytics-project-portfolio/tree/main/research/loan-approval">Loan approval prediction</a></h3>
           <p>Least-squares classifier for loan decisions. Removing credit score dropped accuracy to 82%, which showed how much the model relies on it.</p>
           <div class="stack">MATLAB · Classification</div>
         </div>
@@ -283,7 +300,7 @@ footer{padding:56px 0 64px}
       <li class="note">
         <div class="date">2024.09</div>
         <div>
-          <h3>Airline fleet &amp; route optimization</h3>
+          <h3><a href="https://github.com/adriannb666/analytics-project-portfolio/tree/main/research/airline-optimization">Airline fleet &amp; route optimization</a></h3>
           <p>Linear and mixed-integer programming to allocate a $160M budget. Recommended 10 aircraft at $154M for an estimated $163,600 in daily profit.</p>
           <div class="stack">MATLAB · LP / MIP</div>
         </div>
@@ -293,6 +310,7 @@ footer{padding:56px 0 64px}
         </div>
       </li>
     </ol>
+    <p class="project-index"><a class="textlink" href="https://github.com/adriannb666/analytics-project-portfolio/blob/main/PROJECTS.md">Explore all 16 projects →</a> <a class="textlink" href="https://github.com/adriannb666/analytics-project-portfolio/blob/main/REPRODUCTION.md">Read the reproduction results →</a></p>
   </section>
 
   <section id="research" aria-labelledby="research-h">
@@ -300,7 +318,7 @@ footer{padding:56px 0 64px}
       <span class="sec-head label" style="display:block;margin:0;font-family:var(--font-mono);font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--accent)">Independent research</span>
       <div class="adr-body">
         <h2 id="research-h" style="font-family:var(--font-display);font-weight:600;font-size:clamp(28px,3.6vw,40px);letter-spacing:-.015em;line-height:1.1;margin-bottom:20px">AD Market Research <span lang="zh" style="font-family:var(--font-body);font-weight:400;font-size:.5em;color:var(--muted)">AD市场研究</span></h2>
-        <p>I founded AD Market Research in January 2026, after publishing on US stocks, macro and digital assets since October 2022. The work is Chinese-language market analysis and explainers, and the data and code behind every study are public on GitHub.</p>
+        <p>I founded AD Market Research in January 2026, after publishing on US stocks, macro and digital assets since October 2022. I publish Chinese-language market analysis and explainers. Four public Bitcoin studies include methods, results, figures and code using Binance public data.</p>
 
         <div class="stat-row">
           <div class="stat"><div class="num">1.077M</div><div class="what">likes across three platforms</div></div>
@@ -322,7 +340,7 @@ footer{padding:56px 0 64px}
           <div class="foot-note">Figures as of September 2026.</div>
         </div>
 
-        <p style="margin-top:28px"><a class="textlink" href="https://github.com/adriannb666/market-research">Browse the studies on GitHub →</a></p>
+        <p style="margin-top:28px"><a class="textlink" href="https://github.com/adriannb666/analytics-project-portfolio/tree/main/research/ad-market-research">Browse the studies on GitHub →</a></p>
       </div>
     </div>
   </section>
@@ -385,11 +403,11 @@ footer{padding:56px 0 64px}
     <div class="contact">
       <span class="label" style="font-family:var(--font-mono);font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--accent)">Contact</span>
       <div>
-        <h2>Looking for business analytics and research roles.</h2>
+        <h2>Seeking Summer 2027 internships in business analytics and research.</h2>
         <div class="links">
           <a href="https://www.linkedin.com/in/yitian-zhang1219/">LinkedIn</a>
           <a href="https://github.com/adriannb666">GitHub</a>
-          <span class="plain">Zhihu · 阿德里安</span>
+          <a href="https://www.zhihu.com/people/ad_trading">Zhihu · 阿德里安</a>
         </div>
         <div class="colophon">Adrian (Yitian) Zhang · Boston · Updated November 2026</div>
       </div>
